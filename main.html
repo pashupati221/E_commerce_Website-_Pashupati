@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Main Page</title>
+</head>
+<body>
+
+  <!-- Navbar -->
+  <div style="display: flex; justify-content: space-between; background: #007bff; color: white; padding: 10px;">
+    <div><b>🛒 Shop Now Mart</b></div>
+    <div id="navbar-user-section"></div>
+  </div>
+
+  <!-- Welcome Section -->
+  <div id="welcome-container" style="text-align: center; margin-top: 40px;"></div>
+
+  <script>
+    const userSection = document.getElementById("navbar-user-section");
+    const welcomeContainer = document.getElementById("welcome-container");
+
+    const isLoggedIn = localStorage.getItem("loggedIn") === "true";
+    const userEmail = localStorage.getItem("email");
+
+    function renderLoggedInView() {
+      userSection.innerHTML = `
+        <a href="#" style="margin-right: 10px;">About</a>
+        <a href="#" style="margin-right: 10px;">Contact</a>
+        <span>Hi, <strong>${userEmail}</strong></span>
+        <button onclick="logout()" style="margin-left: 10px;">Logout</button>
+      `;
+    }
+
+    function renderLoginFormView() {
+      userSection.innerHTML = `
+        <input type="email" id="nav-email" placeholder="Email" style="padding: 5px;" />
+        <input type="password" id="nav-password" placeholder="Password" style="padding: 5px;" />
+        <button onclick="inlineLogin()">Login</button>
+      `;
+    }
+
+    function logout() {
+      localStorage.setItem("loggedIn", "false");
+      renderLoginFormView();
+      welcomeContainer.innerHTML = `<h3>You have logged out.</h3>`;
+    }
+
+    function inlineLogin() {
+      const email = document.getElementById("nav-email").value;
+      const password = document.getElementById("nav-password").value;
+
+      const storedEmail = localStorage.getItem("email");
+      const storedPassword = localStorage.getItem("password");
+
+      if (email === storedEmail && password === storedPassword) {
+        localStorage.setItem("loggedIn", "true");
+        localStorage.setItem("email", email);
+        renderLoggedInView();
+        welcomeContainer.innerHTML = `<h2>Welcome, ${email}!</h2>`;
+      } else {
+        alert("Invalid email or password");
+      }
+    }
+
+    if (isLoggedIn && userEmail) {
+      renderLoggedInView();
+      welcomeContainer.innerHTML = `<h2>Welcome, ${userEmail}!</h2>`;
+    } else {
+      renderLoginFormView();
+    }
+  </script>
+
+</body>
+</html>

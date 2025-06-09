@@ -1,0 +1,16 @@
+{
+  "name": "add_to_cart-javascript",
+  "version": "1.0.0",
+  "description": "E_commerce_Website",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "author": "Pashu Painath Chaubey",
+  "license": "ISC",
+  "dependencies": {
+    "express.js": "^1.0.0",
+    "mongoose": "^8.4.3"
+  }
+}
